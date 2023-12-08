@@ -1,0 +1,204 @@
+#header {
+  width: 100%;
+  background: transparent;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  z-index: 9999;
+  font-family: "Noto Sans KR", sans-serif;
+  .header_wrap {
+    margin: 0 auto;
+    max-width: 1060px;
+    height: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 60px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 700;
+  }
+  .logo {
+    width: 164px;
+  }
+  .cursor {
+    li {
+      cursor: pointer;
+    }
+  }
+  .header_right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .mo_gnb {
+    height: 250px;
+    width: auto;
+    max-width: 400px;
+    min-width: 200px;
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 400;
+    border: 1px solid #1b1b1e;
+    z-index: 400;
+    overflow: hidden;
+    opacity: 0;
+    border-radius: 30px;
+    visibility: hidden;
+    ul {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-top: 50px;
+    }
+    .lang_wrap {
+      margin-top: 50px;
+      gap: 0;
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      li {
+        a {
+          padding-left: 0;
+          font-size: 12px;
+          &.on {
+            color: white;
+          }
+        }
+        &:first-child {
+          position: relative;
+          &:before {
+            content: "";
+            position: absolute;
+            right: -32px;
+            background: #7f7f7f;
+            width: 1px;
+            height: 18px;
+            top: 22px;
+          }
+        }
+      }
+    }
+    li {
+      a {
+        display: block;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        font-size: 14px;
+        color: rgb(255 255 255 / 70%);
+        text-decoration: none;
+        text-align: center;
+        &.on {
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+    &.on {
+      opacity: 1;
+      transition: all 0.3s;
+      visibility: visible;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 100px;
+        background-color: #1b1b1e;
+        top: 75px;
+        left: 50%;
+        transform: translate(-50%);
+        animation: wave 5s infinite linear;
+        transition: all 1s;
+      }
+      &:hover {
+        &:before {
+          top: 35px;
+        }
+      }
+    }
+  }
+  .menu_btn {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    justify-self: right;
+    align-self: center;
+    border: none;
+    display: block;
+    cursor: pointer;
+    background: url(../../public/images/hambuger_icon.svg) no-repeat;
+    background-size: 18px;
+    background-position: 50%;
+    transition: all 0.1s;
+    z-index: 500;
+    &.on {
+      background: url(../../public/images/close.svg) no-repeat;
+      background-size: 18px;
+      background-position: 50%;
+    }
+  }
+}
+@keyframes wave {
+  0% {
+    transform: translate(-50%) rotate(-180deg);
+  }
+  100% {
+    transform: translate(-50%) rotate(360deg);
+  }
+}
+@media screen and (max-width: 1060px) {
+  #header {
+    .logo {
+      width: 120px;
+    }
+    .header_wrap {
+      padding: 0 16px;
+    }
+    .tnb {
+      display: flex;
+      height: 60px;
+      align-items: center;
+      background: #444;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 20px;
+      &.cursor {
+        li {
+          &:last-child {
+            background: #747474;
+            width: 65px;
+            text-align: center;
+            border-radius: 10px;
+            padding: 8px 0;
+          }
+          &:first-child {
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .header_right {
+      display: none;
+    }
+    .menu_btn {
+      display: block;
+      right: 10px;
+    }
+    .mo_gnb {
+      opacity: 1;
+      transition: all 0.5s;
+      transform: translateX(100%);
+      top: -10px;
+      &.on {
+        transform: translateX(0%);
+        display: block;
+        right: -15px;
+      }
+    }
+  }
+}
