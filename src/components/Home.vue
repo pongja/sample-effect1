@@ -13,7 +13,7 @@
                 </div>
               </template>
               <template v-else-if="slide.type === 'video'">
-                <video :src="`public/video/${slide.src}`" muted autoplay loop></video>
+                <video :src="`/video/${slide.src}`" muted autoplay loop></video>
               </template>
             </div>
           </slide>
