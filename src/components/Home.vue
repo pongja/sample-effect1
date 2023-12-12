@@ -1,121 +1,157 @@
 <template>
   <div id="wrap">
     <ToHeader />
-    <div class="content">
-      <div class="mainSlider section">
-        <carousel id="desk_slide" :wrap-around="true" :breakpoints="breakpoints" :autoplay="10000" :touch-drag="false"
-          :mouse-drag="false" :settings="carouselSettings">
-          <slide v-for="slide in slides" :key="slide.id">
-            <div class="carousel__item">
-              <template v-if="slide.type === 'image'">
-                <div>
-                  <img :src="`/images/${slide.src}`" class="msImg" />
-                </div>
-              </template>
-              <template v-else-if="slide.type === 'video'">
-                <video :src="`/video/${slide.src}`" muted autoplay loop></video>
-              </template>
-            </div>
-          </slide>
-        </carousel>
-        <carousel id="mb_slide" :wrap-around="true" :breakpoints="breakpoints" :autoplay="10000" :touch-drag="false"
-          :mouse-drag="false">
-          <slide v-for="mbslide in mbslides" :key="mbslide">
-            <div class="carousel__item">
-              <template v-if="mbslide.type === 'image'">
-                <img :src="`/images/${mbslide.src}`" class="msImg" />
-              </template>
-              <template v-else-if="mbslide.type === 'video'">
-                <video :src="`public/video/${mbslide.src}`" muted autoplay loop></video>
-              </template>
-            </div>
-          </slide>
-        </carousel>
-
+    <div ref="contentRef" class="content">
+      <div ref="section1Ref" class="section1">
+        <video src="/public/video/effect.mov" muted autoplay loop></video>
         <button type="button" class="ms_down_icon">
           <a @click="down_icon()"><img src="../../public/images/down-circle-outline.svg" alt="down_icoon" /></a>
         </button>
       </div>
-      <div class="section">
-        section2
+      <div ref="section2Ref" class="section2">
+        <div class="section2-box">
+          <div class="section2-textbox">
+            <h4>
+              <span>L</span><span>o</span><span>r</span><span>e</span><span>m</span>
+              <span>i</span><span>p</span><span>s</span><span>u</span><span>m</span><span>.</span><span>.</span><span>.</span>
+            </h4>
+          </div>
+          <div class="wrapper">
+            <div ref="circle1Ref" class="circle1">
+              Lorem
+            </div>
+            <div ref="circle2Ref" class="circle2">
+              Ipsum
+            </div>
+            <div ref="circle3Ref" class="circle3">
+              Simply
+            </div>
+            <div ref="circle4Ref" class="circle4">
+              Dummy
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="section">
-        section3
+      <div ref="section3Ref" class="section3">
+        <div class="backimg" :style="{ backgroundImage: `url(${backgroundImage})`, opacity: opacity }">
+          <div v-for="(item, index) in hoverItems" :key="index" class="hoverDiv" @mouseenter="changeBackground(index)">
+            <div class="hover-textbox">
+              <div class="tbox">
+                <div class="blur_box"></div>
+                <div class="ms_text_wrap" style="display: inline-block;">
+                  <h4 class="main_title">
+                    {{ item.title }}
+                  </h4>
+                  <p class="sub_title">
+                    {{ item.subtitle }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
 import ToHeader from './ToHeader.vue'
-import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide } from 'vue3-carousel'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
-const content = ref(null) // 보일 영역
-const section = ref(null)
-let page = ref(0) // 영역 포지션 초기값
-const lastPage = ref(0) // 마지막 페이지
-const scrollSpeed = 1 // 조절 가능한 스크롤 속도
+const section1Ref = ref(null)
+const section2Ref = ref(null)
+const section3Ref = ref(null)
+const circle1Ref = ref(null)
+const circle2Ref = ref(null)
+const circle3Ref = ref(null)
+const circle4Ref = ref(null)
 
-
-const slides = [
-  { id: 1, src: 'effect.mov', type: 'video' },
-  { id: 2, src: 'main_img3.jpg', type: 'image' },
+const hoverItems = [
+  { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
+  { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
+  { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
 ]
 
-const mbslides = [
-  { id: 1, src: 'effect.mov', type: 'video' },
-  { id: 2, src: 'mb_main_img3.jpg', type: 'image' },
-]
-
-
-
-const carouselSettings = ref({
-  transition: 'fade', // 여기에서 트랜지션 효과 설정
-  // 나머지 설정들...
-})
-
-
+const backgroundImage = ref('/public/images/building.png')
+const opacity = ref(1)
 
 const handleWheel = (e) => {
   e.preventDefault()
   if (e.deltaY > 0) {
-    page.value += scrollSpeed
+    scrollNextSection()
   } else if (e.deltaY < 0) {
-    page.value -= scrollSpeed
+    scrollPrevSection()
   }
-  if (page.value < 0) {
-    page.value = 0
-  } else if (page.value > lastPage.value) {
-    page.value = lastPage.value
-  }
-  content.value.style.top = page.value * -100 + 'vh'
 }
 
-onMounted(() => {
-  content.value = document.querySelector('.content')
-  section.value = document.querySelectorAll('.section')
-  lastPage.value = section.value.length - 1
+const scrollNextSection = () => {
+  if (section2Ref.value.getBoundingClientRect().top < window.innerHeight / 2) {
+    section3Ref.value.scrollIntoView({ behavior: 'smooth' })
+  } else if (section1Ref.value.getBoundingClientRect().top < window.innerHeight / 2) {
+    section2Ref.value.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
+const scrollPrevSection = () => {
+  if (section2Ref.value.getBoundingClientRect().top > -window.innerHeight / 2) {
+    section1Ref.value.scrollIntoView({ behavior: 'smooth' })
+  } else if (section3Ref.value.getBoundingClientRect().top > -window.innerHeight / 2) {
+    section2Ref.value.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const fadeInUpObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fadeInUp')
+    }
+  })
+}, { threshold: 0.5 })
+
+onMounted(() => {
+  section1Ref.value = document.querySelector('.section1')
+  section2Ref.value = document.querySelector('.section2')
+  section3Ref.value = document.querySelector('.section3')
+  circle1Ref.value = document.querySelector('.circle1')
+  circle2Ref.value = document.querySelector('.circle2')
+  circle3Ref.value = document.querySelector('.circle3')
+  circle4Ref.value = document.querySelector('.circle4')
+  fadeInUpObserver.observe(circle1Ref.value)
+  fadeInUpObserver.observe(circle2Ref.value)
+  fadeInUpObserver.observe(circle3Ref.value)
+  fadeInUpObserver.observe(circle4Ref.value)
   window.addEventListener('wheel', handleWheel, { passive: false })
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('wheel', handleWheel)
+  fadeInUpObserver.disconnect()
 })
+
+
+
+const changeBackground = (index) => {
+  opacity.value = 0
+  switch (index) {
+    case 0:
+      backgroundImage.value = '/public/images/building.png'
+      break
+    case 1:
+      backgroundImage.value = '/public/images/main_img2.jpg'
+      break
+    case 2:
+      backgroundImage.value = '/public/images/game.jpg'
+      break
+    default:
+      backgroundImage.value = '/public/images/building.png'
+  }
+  nextTick(() => {
+    opacity.value = 1
+  })
+}
 </script>
 <style lang="scss" scoped>
 @import "~/assets/scss/main.scss";
 @import "~/assets/scss/header.scss";
 @import "~/assets/reset.css";
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
