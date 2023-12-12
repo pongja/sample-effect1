@@ -160,6 +160,7 @@
         .wrapper {
           display: flex;
           justify-content: center;
+          flex-wrap: wrap;
           margin: 0 auto;
           padding: 30px;
           max-width: 1170px;
@@ -337,34 +338,49 @@
 @media screen and (max-width: 1000px) {
   #wrap {
     .content {
-      .mainSlider {
-        .tbox {
-          max-width: 100%;
-          width: calc(100% - 40px);
-          padding: 10px;
-          .ms_text_wrap {
-            padding: 40px 0px;
-            width: 100%;
-            img {
+      .section2 {
+        .section2-box {
+          .wrapper {
+            display: grid;
+            margin-top: 0;
+            padding: 16px;
+            max-width: 100%;
+            grid-template-columns: 1fr 1fr;
+            .circle1,
+            .circle2,
+            .circle3,
+            .circle4 {
               width: 150px;
-              margin: 0 auto;
+              height: 150px;
             }
           }
-          p {
-            line-height: 1.5;
-            font-size: 14px;
+          .section2-textbox {
+            h4 {
+              span {
+                font-size: 2rem;
+              }
+            }
           }
         }
-        h4 {
-          font-size: 22px;
-          max-width: 290px;
-          min-width: 170px;
-          width: 100%;
-          margin: 0 auto;
-          padding: 24px 0;
-        }
-        .msImg {
-          object-fit: cover;
+      }
+      .section3 {
+        .backimg {
+          display: grid;
+          grid-template-columns: 1fr;
+          .hoverDiv {
+            .hover-textbox {
+              .tbox {
+                padding: 10px;
+                .ms_text_wrap {
+                  padding: 10px;
+                  h4 {
+                    font-size: 1.25rem;
+                    margin: 10px 0;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
