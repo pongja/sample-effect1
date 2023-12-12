@@ -72,7 +72,7 @@ const hoverItems = [
   { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
 ]
 
-const backgroundImage = ref('/public/images/building.png')
+const backgroundImage = ref('../../public/images/building.png')
 const opacity = ref(1)
 
 const handleWheel = (e) => {
@@ -134,16 +134,16 @@ const changeBackground = (index) => {
   opacity.value = 0
   switch (index) {
     case 0:
-      backgroundImage.value = '/public/images/building.png'
+      backgroundImage.value = '../../public/images/building.png'
       break
     case 1:
-      backgroundImage.value = '/public/images/main_img2.jpg'
+      backgroundImage.value = '../../public/images/main_img2.jpg'
       break
     case 2:
-      backgroundImage.value = '/public/images/game.jpg'
+      backgroundImage.value = '../../public/images/game.jpg'
       break
     default:
-      backgroundImage.value = '/public/images/building.png'
+      backgroundImage.value = '../../public/images/building.png'
   }
   nextTick(() => {
     opacity.value = 1
