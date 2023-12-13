@@ -88,7 +88,9 @@ const handleWheel = (e) => {
     scrollPrevSection()
   }
 }
-
+const down_icon = () => {
+  section2Ref.value.scrollIntoView({ behavior: 'smooth' })
+}
 const scrollNextSection = () => {
   if (section2Ref.value.getBoundingClientRect().top < window.innerHeight / 2) {
     section3Ref.value.scrollIntoView({ behavior: 'smooth' })
