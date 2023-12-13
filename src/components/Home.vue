@@ -55,7 +55,7 @@
 </template>
 <script setup>
 import ToHeader from './ToHeader.vue'
-import { ref, onMounted, onBeforeUnmount, nextTick, onUnmounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
 let vh = ref(window.innerHeight * 0.01)
 
@@ -66,9 +66,13 @@ const circle1Ref = ref(null)
 const circle2Ref = ref(null)
 const circle3Ref = ref(null)
 const circle4Ref = ref(null)
-const setVh = () => {
+const setVhOnScroll = () => {
   vh.value = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh.value}px`)
+}
+
+const handleScroll = () => {
+  setVhOnScroll()
 }
 
 const hoverItems = [
@@ -128,18 +132,16 @@ onMounted(() => {
   fadeInUpObserver.observe(circle3Ref.value)
   fadeInUpObserver.observe(circle4Ref.value)
   window.addEventListener('wheel', handleWheel, { passive: false })
-  window.addEventListener('resize', setVh)
-  setVh()
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('wheel', handleWheel)
+  window.removeEventListener('scroll', handleScroll)
   fadeInUpObserver.disconnect()
 })
 
-onUnmounted(() => {
-  window.removeEventListener('resize', setVh)
-})
+
 
 const changeBackground = (index) => {
   opacity.value = 0
