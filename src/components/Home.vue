@@ -102,7 +102,7 @@ const handleTouchMove = (e) => {
   isAnimating = true
 
   const touchY = e.touches[0].clientY
-  const deltaY = touchY - lastTouchY
+  const deltaY = lastTouchY - touchY
   lastTouchY = touchY
 
   if (deltaY > 0) {
