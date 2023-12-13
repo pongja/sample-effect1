@@ -1,5 +1,5 @@
 <template>
-  <div id="wrap">
+  <div id="wrap" @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
     <ToHeader />
 
     <div ref="section1Ref" class="section1">
@@ -159,6 +159,24 @@ const changeBackground = (index) => {
   nextTick(() => {
     opacity.value = 1
   })
+}
+
+let touchStartY = 0
+
+const handleTouchStart = (e) => {
+  touchStartY = e.touches[0].clientY
+}
+
+const handleTouchMove = (e) => {
+  const deltaY = e.touches[0].clientY - touchStartY
+
+  if (deltaY > 0) {
+    scrollNextSection()
+  } else if (deltaY < 0) {
+    scrollPrevSection()
+  }
+}
+const handleTouchEnd = () => {
 }
 </script>
 <style lang="scss" scoped>
