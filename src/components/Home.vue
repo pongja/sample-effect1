@@ -94,7 +94,7 @@ const opacity = ref(1)
 
 
 const handleTouchMove = (e) => {
-
+  e.preventDefault()
 
   if (isAnimating) {
     return
