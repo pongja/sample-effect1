@@ -97,17 +97,17 @@ const down_icon = () => {
 }
 const scrollNextSection = () => {
   if (section2Ref.value.getBoundingClientRect().top < window.innerHeight / 2) {
-    section3Ref.value.scrollIntoView({ behavior: 'smooth' })
+    section3Ref.value.scrollIntoView({ behavior: 'auto' })
   } else if (section1Ref.value.getBoundingClientRect().top < window.innerHeight / 2) {
-    section2Ref.value.scrollIntoView({ behavior: 'smooth' })
+    section2Ref.value.scrollIntoView({ behavior: 'auto' })
   }
 }
 
 const scrollPrevSection = () => {
   if (section2Ref.value.getBoundingClientRect().top > -window.innerHeight / 2) {
-    section1Ref.value.scrollIntoView({ behavior: 'smooth' })
+    section1Ref.value.scrollIntoView({ behavior: 'auto' })
   } else if (section3Ref.value.getBoundingClientRect().top > -window.innerHeight / 2) {
-    section2Ref.value.scrollIntoView({ behavior: 'smooth' })
+    section2Ref.value.scrollIntoView({ behavior: 'auto' })
   }
 }
 
