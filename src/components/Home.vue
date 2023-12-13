@@ -1,51 +1,50 @@
 <template>
   <div id="wrap">
     <ToHeader />
-    <div ref="contentRef" class="content">
-      <div ref="section1Ref" class="section1">
-        <video src="/public/video/effect.mov" muted autoplay loop></video>
-        <button type="button" class="ms_down_icon">
-          <a @click="down_icon()"><img src="../../public/images/down-circle-outline.svg" alt="down_icoon" /></a>
-        </button>
-      </div>
-      <div ref="section2Ref" class="section2">
-        <div class="section2-box">
-          <div class="section2-textbox">
-            <h4>
-              <span>L</span><span>o</span><span>r</span><span>e</span><span>m</span>
-              <span>i</span><span>p</span><span>s</span><span>u</span><span>m</span><span>.</span><span>.</span><span>.</span>
-            </h4>
+
+    <div ref="section1Ref" class="section1">
+      <video src="/public/video/effect.mov" muted autoplay loop playsinline></video>
+      <button type="button" class="ms_down_icon">
+        <a @click="down_icon()"><img src="../../public/images/down-circle-outline.svg" alt="down_icoon" /></a>
+      </button>
+    </div>
+    <div ref="section2Ref" class="section2">
+      <div class="section2-box">
+        <div class="section2-textbox">
+          <h4>
+            <span>L</span><span>o</span><span>r</span><span>e</span><span>m</span>
+            <span>i</span><span>p</span><span>s</span><span>u</span><span>m</span><span>.</span><span>.</span><span>.</span>
+          </h4>
+        </div>
+        <div class="wrapper">
+          <div ref="circle1Ref" class="circle1">
+            Lorem
           </div>
-          <div class="wrapper">
-            <div ref="circle1Ref" class="circle1">
-              Lorem
-            </div>
-            <div ref="circle2Ref" class="circle2">
-              Ipsum
-            </div>
-            <div ref="circle3Ref" class="circle3">
-              Simply
-            </div>
-            <div ref="circle4Ref" class="circle4">
-              Dummy
-            </div>
+          <div ref="circle2Ref" class="circle2">
+            Ipsum
+          </div>
+          <div ref="circle3Ref" class="circle3">
+            Simply
+          </div>
+          <div ref="circle4Ref" class="circle4">
+            Dummy
           </div>
         </div>
       </div>
-      <div ref="section3Ref" class="section3">
-        <div class="backimg" :style="{ backgroundImage: `url(${backgroundImage})`, opacity: opacity }">
-          <div v-for="(item, index) in hoverItems" :key="index" class="hoverDiv" @mouseenter="changeBackground(index)">
-            <div class="hover-textbox">
-              <div class="tbox">
-                <div class="blur_box"></div>
-                <div class="ms_text_wrap" style="display: inline-block;">
-                  <h4 class="main_title">
-                    {{ item.title }}
-                  </h4>
-                  <p class="sub_title">
-                    {{ item.subtitle }}
-                  </p>
-                </div>
+    </div>
+    <div ref="section3Ref" class="section3">
+      <div class="backimg" :style="{ backgroundImage: `url(${backgroundImage})`, opacity: opacity }">
+        <div v-for="(item, index) in hoverItems" :key="index" class="hoverDiv" @mouseenter="changeBackground(index)">
+          <div class="hover-textbox">
+            <div class="tbox">
+              <div class="blur_box"></div>
+              <div class="ms_text_wrap" style="display: inline-block;">
+                <h4 class="main_title">
+                  {{ item.title }}
+                </h4>
+                <p class="sub_title">
+                  {{ item.subtitle }}
+                </p>
               </div>
             </div>
           </div>
