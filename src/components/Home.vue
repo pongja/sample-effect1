@@ -57,7 +57,8 @@
 import ToHeader from './ToHeader.vue'
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
-let vh = ref(window.innerHeight * 0.01)
+const vh = ref(window.innerHeight * 0.01)
+let isAnimating = false
 
 const section1Ref = ref(null)
 const section2Ref = ref(null)
@@ -86,11 +87,22 @@ const opacity = ref(1)
 
 const handleWheel = (e) => {
   e.preventDefault()
+
+  if (isAnimating) {
+    return
+  }
+
+  isAnimating = true
+
   if (e.deltaY > 0) {
     scrollNextSection()
   } else if (e.deltaY < 0) {
     scrollPrevSection()
   }
+
+  setTimeout(() => {
+    isAnimating = false
+  }, 1000)
 }
 const down_icon = () => {
   section2Ref.value.scrollIntoView({ behavior: 'smooth' })
