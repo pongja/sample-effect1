@@ -91,6 +91,7 @@
     position: relative;
     min-height: 100vh;
     min-height: -webkit-fill-available;
+    display: block;
     .section2-box {
       position: absolute;
       top: 50%;
@@ -251,6 +252,7 @@
     width: 100vw;
     min-height: 100vh;
     min-height: -webkit-fill-available;
+    display: block;
     .backimg {
       display: flex;
       align-items: center;
