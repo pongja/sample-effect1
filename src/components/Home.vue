@@ -59,6 +59,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
 const vh = ref(window.innerHeight * 0.01)
 let isAnimating = false
+let lastTouchY = 0
 
 const section1Ref = ref(null)
 const section2Ref = ref(null)
@@ -67,13 +68,13 @@ const circle1Ref = ref(null)
 const circle2Ref = ref(null)
 const circle3Ref = ref(null)
 const circle4Ref = ref(null)
-const setVhOnScroll = () => {
+const setVh = () => {
   vh.value = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh.value}px`)
 }
 
-const handleScroll = () => {
-  setVhOnScroll()
+const handleTouchStart = (e) => {
+  lastTouchY = e.touches[0].clientY
 }
 
 const hoverItems = [
@@ -81,9 +82,39 @@ const hoverItems = [
   { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
   { title: 'Lorem Ipsum', subtitle: 'Lorem Ipsum' },
 ]
+const setVhOnScroll = () => {
+  setVh()
+}
+const handleScroll = () => {
+  setVhOnScroll()
+}
 
 const backgroundImage = ref('/images/building.png')
 const opacity = ref(1)
+
+
+const handleTouchMove = (e) => {
+
+
+  if (isAnimating) {
+    return
+  }
+  isAnimating = true
+
+  const touchY = e.touches[0].clientY
+  const deltaY = touchY - lastTouchY
+  lastTouchY = touchY
+
+  if (deltaY > 0) {
+    scrollNextSection()
+  } else if (deltaY < 0) {
+    scrollPrevSection()
+  }
+
+  setTimeout(() => {
+    isAnimating = false
+  }, 1000)
+}
 
 const handleWheel = (e) => {
   e.preventDefault()
@@ -104,6 +135,7 @@ const handleWheel = (e) => {
     isAnimating = false
   }, 1000)
 }
+
 const down_icon = () => {
   section2Ref.value.scrollIntoView({ behavior: 'smooth' })
 }
@@ -144,12 +176,19 @@ onMounted(() => {
   fadeInUpObserver.observe(circle3Ref.value)
   fadeInUpObserver.observe(circle4Ref.value)
   window.addEventListener('wheel', handleWheel, { passive: false })
+  window.addEventListener('touchmove', handleTouchMove, { passive: false })
+  window.addEventListener('touchstart', handleTouchStart, { passive: false })
   window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', setVh)
+  setVh()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('wheel', handleWheel)
+  window.removeEventListener('touchmove', handleTouchMove)
+  window.removeEventListener('touchstart', handleTouchStart)
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', setVh)
   fadeInUpObserver.disconnect()
 })
 
