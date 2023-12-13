@@ -3,7 +3,7 @@
     <ToHeader />
 
     <div ref="section1Ref" class="section1">
-      <video src="/public/video/effect.mov" muted autoplay loop playsinline></video>
+      <video src="/public/video/effect.mov" muted autoplay loop playsinline alt="video"></video>
       <button type="button" class="ms_down_icon">
         <a @click="down_icon()"><img src="../../public/images/down-circle-outline.svg" alt="down_icoon" /></a>
       </button>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div ref="section3Ref" class="section3">
-      <div class="backimg" :style="{ backgroundImage: `url(${backgroundImage})`, opacity: opacity }">
+      <div class="backimg" :style="{ backgroundImage: `url(${backgroundImage})`, opacity: opacity }" alt="hoverimg">
         <div v-for="(item, index) in hoverItems" :key="index" class="hoverDiv" @mouseenter="changeBackground(index)">
           <div class="hover-textbox">
             <div class="tbox">
